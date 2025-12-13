@@ -370,7 +370,7 @@ Bu proje eğitim amaçlı geliştirilmiştir.
 <div align="center">
 
 **⭐ Bu projeyi beğendiyseniz yıldız vermeyi unutmayın!**
-
+:)
 Made with ❤️ in Sakarya,Serdivan Turkey
 
 </div>
