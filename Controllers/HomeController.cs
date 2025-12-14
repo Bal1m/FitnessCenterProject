@@ -10,7 +10,10 @@ namespace FitnessCenterProject.Controllers
         {
             return View();
         }
-
+        public IActionResult Index32()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
@@ -23,3 +26,5 @@ namespace FitnessCenterProject.Controllers
         }
     }
 }
+// revizeler girildi
+
