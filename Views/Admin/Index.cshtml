@@ -1,0 +1,171 @@
+﻿@model DashboardViewModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "_AdminLayout";
+}
+
+<div class="container-fluid">
+    <h2 class="mb-4">
+        <i class="bi bi-speedometer2 me-2"></i>Dashboard
+    </h2>
+
+    <!-- İstatistik Kartları -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="stats-card bg-gradient-primary">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <p class="mb-0 opacity-75">Toplam Üye</p>
+                        <h3>@Model.TotalMembers</h3>
+                    </div>
+                    <i class="bi bi-people"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card bg-gradient-success">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <p class="mb-0 opacity-75">Toplam Eğitmen</p>
+                        <h3>@Model.TotalTrainers</h3>
+                    </div>
+                    <i class="bi bi-person-badge"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card bg-gradient-warning">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <p class="mb-0 opacity-75">Toplam Hizmet</p>
+                        <h3>@Model.TotalServices</h3>
+                    </div>
+                    <i class="bi bi-grid"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card bg-gradient-info">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <p class="mb-0 opacity-75">Toplam Randevu</p>
+                        <h3>@Model.TotalAppointments</h3>
+                    </div>
+                    <i class="bi bi-calendar-check"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Randevu Durumları & Gelir -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="bi bi-pie-chart me-2"></i>Randevu Durumları</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-6 col-md-3 mb-3">
+                            <div class="p-3 bg-warning bg-opacity-10 rounded">
+                                <h4 class="text-warning mb-0">@Model.PendingAppointments</h4>
+                                <small class="text-muted">Beklemede</small>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3 mb-3">
+                            <div class="p-3 bg-success bg-opacity-10 rounded">
+                                <h4 class="text-success mb-0">@Model.ApprovedAppointments</h4>
+                                <small class="text-muted">Onaylı</small>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3 mb-3">
+                            <div class="p-3 bg-info bg-opacity-10 rounded">
+                                <h4 class="text-info mb-0">@Model.CompletedAppointments</h4>
+                                <small class="text-muted">Tamamlandı</small>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3 mb-3">
+                            <div class="p-3 bg-secondary bg-opacity-10 rounded">
+                                <h4 class="text-secondary mb-0">@Model.CancelledAppointments</h4>
+                                <small class="text-muted">İptal</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="bi bi-currency-lira me-2"></i>Gelir Özeti</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="p-3 bg-light rounded text-center">
+                                <small class="text-muted d-block">Toplam Gelir</small>
+                                <h3 class="text-primary mb-0">@Model.TotalRevenue.ToString("N0") TL</h3>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="p-3 bg-light rounded text-center">
+                                <small class="text-muted d-block">Bu Ay</small>
+                                <h3 class="text-success mb-0">@Model.MonthlyRevenue.ToString("N0") TL</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Son Randevular -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="bi bi-clock-history me-2"></i>Son Randevular</h5>
+                    <a asp-action="Appointments" class="btn btn-sm btn-outline-primary">Tümünü Gör</a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Hizmet</th>
+                                    <th>Eğitmen</th>
+                                    <th>Tarih</th>
+                                    <th>Saat</th>
+                                    <th>Ücret</th>
+                                    <th>Durum</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.RecentAppointments.Any())
+                                {
+                                    @foreach (var appointment in Model.RecentAppointments)
+                                    {
+                                        <tr>
+                                            <td>@appointment.ServiceName</td>
+                                            <td>@appointment.TrainerName</td>
+                                            <td>@appointment.AppointmentDate.ToString("dd.MM.yyyy")</td>
+                                            <td>@appointment.StartTime.ToString(@"hh\:mm")</td>
+                                            <td>@appointment.TotalPrice.ToString("N0") TL</td>
+                                            <td><span class="badge @appointment.StatusBadgeClass">@appointment.StatusText</span></td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="6" class="text-center py-4 text-muted">Henüz randevu bulunmuyor</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

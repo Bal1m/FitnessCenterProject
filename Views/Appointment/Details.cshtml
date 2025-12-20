@@ -1,0 +1,132 @@
+﻿@model AppointmentListViewModel
+@{
+    ViewData["Title"] = "Randevu Detayı";
+    var isPast = Model.AppointmentDate.Date < DateTime.Today;
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">
+                        <i class="bi bi-calendar-check me-2"></i>Randevu Detayı
+                    </h4>
+                    <span class="badge @Model.StatusBadgeClass fs-6">@Model.StatusText</span>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row g-4">
+                        <!-- Hizmet Bilgisi -->
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                    <i class="bi bi-grid text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-muted small mb-0">Hizmet</p>
+                                    <h5 class="mb-0">@Model.ServiceName</h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Eğitmen Bilgisi -->
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-success rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                    <i class="bi bi-person text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-muted small mb-0">Eğitmen</p>
+                                    <h5 class="mb-0">@Model.TrainerName</h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tarih -->
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-info rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                    <i class="bi bi-calendar3 text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-muted small mb-0">Tarih</p>
+                                    <h5 class="mb-0">@Model.AppointmentDate.ToString("dd MMMM yyyy, dddd")</h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Saat -->
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-warning rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                    <i class="bi bi-clock text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-muted small mb-0">Saat</p>
+                                    <h5 class="mb-0">@Model.StartTime.ToString(@"hh\:mm") - @Model.EndTime.ToString(@"hh\:mm")</h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Süre -->
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                    <i class="bi bi-hourglass-split text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-muted small mb-0">Süre</p>
+                                    <h5 class="mb-0">@Model.DurationMinutes dakika</h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ücret -->
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-danger rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                    <i class="bi bi-currency-lira text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-muted small mb-0">Ücret</p>
+                                    <h5 class="mb-0 text-primary">@Model.TotalPrice.ToString("N0") TL</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(Model.Notes))
+                    {
+                        <hr class="my-4">
+                        <div class="bg-light p-3 rounded">
+                            <h6 class="fw-bold mb-2"><i class="bi bi-sticky me-1"></i>Notlar</h6>
+                            <p class="mb-0">@Model.Notes</p>
+                        </div>
+                    }
+
+                    <hr class="my-4">
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a asp-action="Index" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-1"></i>Randevularıma Dön
+                        </a>
+
+                        @if ((Model.Status == AppointmentStatus.Pending || Model.Status == AppointmentStatus.Approved) && !isPast)
+                        {
+                            <form asp-action="Cancel" asp-route-id="@Model.Id" method="post"
+                                  onsubmit="return confirm('Bu randevuyu iptal etmek istediğinize emin misiniz?');">
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="bi bi-x-lg me-1"></i>Randevuyu İptal Et
+                                </button>
+                            </form>
+                        }
+                    </div>
+                </div>
+                <div class="card-footer bg-white text-muted small">
+                    <i class="bi bi-info-circle me-1"></i>
+                    Oluşturulma: @Model.CreatedAt.ToString("dd.MM.yyyy HH:mm")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

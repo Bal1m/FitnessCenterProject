@@ -1,0 +1,159 @@
+﻿@model List<AppointmentListViewModel>
+@{
+    ViewData["Title"] = "Randevularım";
+}
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">
+                <i class="bi bi-calendar-check me-2"></i>Randevularım
+            </h2>
+            <p class="text-muted mb-0">Tüm randevularınızı buradan takip edebilirsiniz</p>
+        </div>
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="bi bi-plus-lg me-1"></i>Yeni Randevu
+        </a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="card">
+            <div class="card-body text-center py-5">
+                <i class="bi bi-calendar-x text-muted" style="font-size: 4rem;"></i>
+                <h4 class="mt-3">Henüz randevunuz bulunmuyor</h4>
+                <p class="text-muted">Hemen ilk randevunuzu oluşturun!</p>
+                <a asp-action="Create" class="btn btn-primary mt-2">
+                    <i class="bi bi-plus-lg me-1"></i>Randevu Oluştur
+                </a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <!-- Filtreler -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label small text-muted">Durum Filtresi</label>
+                        <select class="form-select" id="statusFilter">
+                            <option value="">Tümü</option>
+                            <option value="Pending">Beklemede</option>
+                            <option value="Approved">Onaylandı</option>
+                            <option value="Completed">Tamamlandı</option>
+                            <option value="Cancelled">İptal Edildi</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label small text-muted">Tarih Filtresi</label>
+                        <select class="form-select" id="dateFilter">
+                            <option value="">Tümü</option>
+                            <option value="upcoming">Yaklaşan</option>
+                            <option value="past">Geçmiş</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 d-flex align-items-end">
+                        <button class="btn btn-outline-secondary w-100" onclick="clearFilters()">
+                            <i class="bi bi-x-lg me-1"></i>Filtreleri Temizle
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Randevu Listesi -->
+        <div class="row g-4" id="appointmentList">
+            @foreach (var appointment in Model)
+            {
+                var isPast = appointment.AppointmentDate.Date < DateTime.Today;
+                <div class="col-md-6 appointment-item"
+                     data-status="@appointment.Status"
+                     data-date="@(isPast ? "past" : "upcoming")">
+                    <div class="card h-100 @(isPast ? "opacity-75" : "")">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <span>
+                                <i class="bi bi-calendar3 me-1"></i>
+                                @appointment.AppointmentDate.ToString("dd MMMM yyyy, dddd")
+                            </span>
+                            <span class="badge @appointment.StatusBadgeClass">@appointment.StatusText</span>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">@appointment.ServiceName</h5>
+                            <p class="card-text text-muted mb-2">
+                                <i class="bi bi-person me-1"></i>Eğitmen: <strong>@appointment.TrainerName</strong>
+                            </p>
+                            <div class="d-flex justify-content-between text-muted small">
+                                <span>
+                                    <i class="bi bi-clock me-1"></i>
+                                    @appointment.StartTime.ToString(@"hh\:mm") - @appointment.EndTime.ToString(@"hh\:mm")
+                                </span>
+                                <span>
+                                    <i class="bi bi-hourglass-split me-1"></i>
+                                    @appointment.DurationMinutes dakika
+                                </span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="h5 text-primary mb-0">@appointment.TotalPrice.ToString("N0") TL</span>
+                                <div>
+                                    <a asp-action="Details" asp-route-id="@appointment.Id" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> Detay
+                                    </a>
+                                    @if ((appointment.Status == AppointmentStatus.Pending || appointment.Status == AppointmentStatus.Approved) && !isPast)
+                                    {
+                                        <form asp-action="Cancel" asp-route-id="@appointment.Id" method="post" class="d-inline"
+                                              onsubmit="return confirm('Bu randevuyu iptal etmek istediğinize emin misiniz?');">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                <i class="bi bi-x-lg"></i> İptal
+                                            </button>
+                                        </form>
+                                    }
+                                </div>
+                            </div>
+                            @if (!string.IsNullOrEmpty(appointment.Notes))
+                            {
+                                <div class="mt-3 p-2 bg-light rounded small">
+                                    <i class="bi bi-sticky me-1"></i>@appointment.Notes
+                                </div>
+                            }
+                        </div>
+                        <div class="card-footer bg-white text-muted small">
+                            <i class="bi bi-calendar-plus me-1"></i>Oluşturulma: @appointment.CreatedAt.ToString("dd.MM.yyyy HH:mm")
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('statusFilter')?.addEventListener('change', filterAppointments);
+        document.getElementById('dateFilter')?.addEventListener('change', filterAppointments);
+
+        function filterAppointments() {
+            const status = document.getElementById('statusFilter').value;
+            const date = document.getElementById('dateFilter').value;
+            const items = document.querySelectorAll('.appointment-item');
+
+            items.forEach(item => {
+                const itemStatus = item.dataset.status;
+                const itemDate = item.dataset.date;
+                let show = true;
+
+                if (status && itemStatus !== status) show = false;
+                if (date && itemDate !== date) show = false;
+
+                item.style.display = show ? 'block' : 'none';
+            });
+        }
+
+        function clearFilters() {
+            document.getElementById('statusFilter').value = '';
+            document.getElementById('dateFilter').value = '';
+            filterAppointments();
+        }
+    </script>
+}

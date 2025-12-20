@@ -1,0 +1,252 @@
+﻿@model AppointmentCreateViewModel
+@{
+    ViewData["Title"] = "Yeni Randevu";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="bi bi-calendar-plus me-2"></i>Yeni Randevu Oluştur
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Create" method="post" id="appointmentForm">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                        <!-- Adım 1: Hizmet Seçimi -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold text-primary mb-3">
+                                <span class="badge bg-primary rounded-circle me-2">1</span>Hizmet Seçin
+                            </h6>
+                            <label asp-for="ServiceId" class="form-label">Hizmet</label>
+                            <select asp-for="ServiceId" asp-items="Model.Services" class="form-select" id="serviceSelect">
+                                <option value="">-- Hizmet Seçin --</option>
+                            </select>
+                            <span asp-validation-for="ServiceId" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Adım 2: Eğitmen Seçimi -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold text-primary mb-3">
+                                <span class="badge bg-primary rounded-circle me-2">2</span>Eğitmen Seçin
+                            </h6>
+                            <label asp-for="TrainerId" class="form-label">Eğitmen</label>
+                            <select asp-for="TrainerId" class="form-select" id="trainerSelect" disabled>
+                                <option value="">-- Önce hizmet seçin --</option>
+                            </select>
+                            <span asp-validation-for="TrainerId" class="text-danger small"></span>
+                            <div id="trainerInfo" class="mt-2 p-2 bg-light rounded small" style="display: none;"></div>
+                        </div>
+
+                        <!-- Adım 3: Tarih Seçimi -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold text-primary mb-3">
+                                <span class="badge bg-primary rounded-circle me-2">3</span>Tarih Seçin
+                            </h6>
+                            <label asp-for="AppointmentDate" class="form-label">Randevu Tarihi</label>
+                            <input asp-for="AppointmentDate" type="date" class="form-control" id="dateSelect" disabled
+                                   min="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")"
+                                   max="@DateTime.Today.AddMonths(2).ToString("yyyy-MM-dd")" />
+                            <span asp-validation-for="AppointmentDate" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Adım 4: Saat Seçimi -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold text-primary mb-3">
+                                <span class="badge bg-primary rounded-circle me-2">4</span>Saat Seçin
+                            </h6>
+                            <label asp-for="StartTime" class="form-label">Randevu Saati</label>
+                            <select asp-for="StartTime" class="form-select" id="timeSelect" disabled>
+                                <option value="">-- Önce tarih seçin --</option>
+                            </select>
+                            <span asp-validation-for="StartTime" class="text-danger small"></span>
+                            <div id="noTimeSlots" class="alert alert-warning mt-2" style="display: none;">
+                                <i class="bi bi-exclamation-triangle me-1"></i>
+                                Seçilen tarihte uygun saat bulunmamaktadır. Lütfen başka bir tarih seçin.
+                            </div>
+                        </div>
+
+                        <!-- Adım 5: Notlar -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold text-primary mb-3">
+                                <span class="badge bg-primary rounded-circle me-2">5</span>Ek Bilgiler (Opsiyonel)
+                            </h6>
+                            <label asp-for="Notes" class="form-label">Notlar</label>
+                            <textarea asp-for="Notes" class="form-control" rows="3"
+                                      placeholder="Eğitmene iletmek istediğiniz notlarınız varsa yazabilirsiniz..."></textarea>
+                            <span asp-validation-for="Notes" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Özet -->
+                        <div id="summaryCard" class="card bg-light mb-4" style="display: none;">
+                            <div class="card-body">
+                                <h6 class="fw-bold mb-3"><i class="bi bi-receipt me-2"></i>Randevu Özeti</h6>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p class="mb-1 small text-muted">Hizmet</p>
+                                        <p class="fw-bold" id="summaryService">-</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="mb-1 small text-muted">Eğitmen</p>
+                                        <p class="fw-bold" id="summaryTrainer">-</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="mb-1 small text-muted">Tarih</p>
+                                        <p class="fw-bold" id="summaryDate">-</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="mb-1 small text-muted">Saat</p>
+                                        <p class="fw-bold" id="summaryTime">-</p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="fw-bold">Toplam Ücret:</span>
+                                    <span class="h4 text-primary mb-0" id="summaryPrice">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left me-1"></i>Geri
+                            </a>
+                            <button type="submit" class="btn btn-primary" id="submitBtn" disabled>
+                                <i class="bi bi-check-lg me-1"></i>Randevu Oluştur
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        const serviceSelect = document.getElementById('serviceSelect');
+        const trainerSelect = document.getElementById('trainerSelect');
+        const dateSelect = document.getElementById('dateSelect');
+        const timeSelect = document.getElementById('timeSelect');
+        const submitBtn = document.getElementById('submitBtn');
+        const summaryCard = document.getElementById('summaryCard');
+
+        // Hizmet değiştiğinde
+        serviceSelect.addEventListener('change', async function() {
+            const serviceId = this.value;
+
+            // Reset
+            trainerSelect.innerHTML = '<option value="">-- Yükleniyor... --</option>';
+            trainerSelect.disabled = true;
+            dateSelect.disabled = true;
+            timeSelect.disabled = true;
+            submitBtn.disabled = true;
+            summaryCard.style.display = 'none';
+
+            if (!serviceId) {
+                trainerSelect.innerHTML = '<option value="">-- Önce hizmet seçin --</option>';
+                return;
+            }
+
+            try {
+                const response = await fetch(`/Appointment/GetTrainersByService?serviceId=${serviceId}`);
+                const trainers = await response.json();
+
+                trainerSelect.innerHTML = '<option value="">-- Eğitmen Seçin --</option>';
+                trainers.forEach(t => {
+                    trainerSelect.innerHTML += `<option value="${t.value}">${t.text}</option>`;
+                });
+                trainerSelect.disabled = false;
+
+                updateSummary();
+            } catch (error) {
+                console.error('Eğitmenler yüklenemedi:', error);
+            }
+        });
+
+        // Eğitmen değiştiğinde
+        trainerSelect.addEventListener('change', function() {
+            dateSelect.disabled = !this.value;
+            dateSelect.value = '';
+            timeSelect.innerHTML = '<option value="">-- Önce tarih seçin --</option>';
+            timeSelect.disabled = true;
+            submitBtn.disabled = true;
+            updateSummary();
+        });
+
+        // Tarih değiştiğinde
+        dateSelect.addEventListener('change', async function() {
+            const trainerId = trainerSelect.value;
+            const serviceId = serviceSelect.value;
+            const date = this.value;
+
+            timeSelect.innerHTML = '<option value="">-- Yükleniyor... --</option>';
+            timeSelect.disabled = true;
+            submitBtn.disabled = true;
+            document.getElementById('noTimeSlots').style.display = 'none';
+
+            if (!date) return;
+
+            try {
+                const response = await fetch(`/Appointment/GetAvailableTimes?trainerId=${trainerId}&date=${date}&serviceId=${serviceId}`);
+                const times = await response.json();
+
+                if (times.length === 0) {
+                    timeSelect.innerHTML = '<option value="">-- Uygun saat yok --</option>';
+                    document.getElementById('noTimeSlots').style.display = 'block';
+                } else {
+                    timeSelect.innerHTML = '<option value="">-- Saat Seçin --</option>';
+                    times.forEach(t => {
+                        timeSelect.innerHTML += `<option value="${t.value}">${t.text}</option>`;
+                    });
+                    timeSelect.disabled = false;
+                }
+
+                updateSummary();
+            } catch (error) {
+                console.error('Saatler yüklenemedi:', error);
+            }
+        });
+
+        // Saat değiştiğinde
+        timeSelect.addEventListener('change', function() {
+            submitBtn.disabled = !this.value;
+            updateSummary();
+        });
+
+        // Özet güncelle
+        function updateSummary() {
+            const service = serviceSelect.options[serviceSelect.selectedIndex];
+            const trainer = trainerSelect.options[trainerSelect.selectedIndex];
+            const date = dateSelect.value;
+            const time = timeSelect.options[timeSelect.selectedIndex];
+
+            if (service?.value && trainer?.value) {
+                summaryCard.style.display = 'block';
+                document.getElementById('summaryService').textContent = service.text.split(' - ')[0] || '-';
+                document.getElementById('summaryTrainer').textContent = trainer?.text || '-';
+
+                if (date) {
+                    const dateObj = new Date(date);
+                    document.getElementById('summaryDate').textContent = dateObj.toLocaleDateString('tr-TR', {
+                        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+                    });
+                } else {
+                    document.getElementById('summaryDate').textContent = '-';
+                }
+
+                document.getElementById('summaryTime').textContent = time?.value ? time.text : '-';
+
+                // Fiyatı parse et
+                const priceMatch = service.text.match(/(\d+(?:\.\d+)?)\s*TL/);
+                document.getElementById('summaryPrice').textContent = priceMatch ? priceMatch[0] : '-';
+            } else {
+                summaryCard.style.display = 'none';
+            }
+        }
+    </script>
+}

@@ -1,0 +1,130 @@
+﻿@model ApplicationUser
+@{
+    ViewData["Title"] = "Profilim";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="bi bi-person-circle me-2"></i>Profil Bilgilerim
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Profile" method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="FullName" class="form-label">
+                                    <i class="bi bi-person me-1"></i>Ad Soyad
+                                </label>
+                                <input asp-for="FullName" class="form-control" />
+                                <span asp-validation-for="FullName" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Email" class="form-label">
+                                    <i class="bi bi-envelope me-1"></i>E-posta
+                                </label>
+                                <input asp-for="Email" class="form-control" readonly />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="PhoneNumber" class="form-label">
+                                    <i class="bi bi-telephone me-1"></i>Telefon
+                                </label>
+                                <input asp-for="PhoneNumber" class="form-control" />
+                                <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">
+                                    <i class="bi bi-calendar me-1"></i>Kayıt Tarihi
+                                </label>
+                                <input type="text" class="form-control" value="@Model.CreatedAt.ToString("dd.MM.yyyy")" readonly />
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+                        <h5 class="mb-3">
+                            <i class="bi bi-heart-pulse me-2"></i>Sağlık Bilgileri
+                            <small class="text-muted">(AI önerileri için)</small>
+                        </h5>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Height" class="form-label">
+                                    <i class="bi bi-rulers me-1"></i>Boy (cm)
+                                </label>
+                                <input asp-for="Height" class="form-control" type="number" placeholder="175" />
+                                <span asp-validation-for="Height" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Weight" class="form-label">
+                                    <i class="bi bi-speedometer me-1"></i>Kilo (kg)
+                                </label>
+                                <input asp-for="Weight" class="form-control" type="number" step="0.1" placeholder="70" />
+                                <span asp-validation-for="Weight" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="BodyType" class="form-label">
+                                    <i class="bi bi-person-standing me-1"></i>Vücut Tipi
+                                </label>
+                                <select asp-for="BodyType" class="form-select">
+                                    <option value="">Seçiniz</option>
+                                    <option value="Ektomorf">Ektomorf (İnce yapılı)</option>
+                                    <option value="Mezomorf">Mezomorf (Atletik)</option>
+                                    <option value="Endomorf">Endomorf (Geniş yapılı)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left me-1"></i>Geri
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-lg me-1"></i>Güncelle
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Hızlı Linkler -->
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <a asp-controller="Appointment" asp-action="Index" class="card text-decoration-none h-100">
+                        <div class="card-body text-center">
+                            <i class="bi bi-calendar-check text-primary" style="font-size: 2rem;"></i>
+                            <h6 class="mt-2 mb-0">Randevularım</h6>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a asp-controller="Appointment" asp-action="Create" class="card text-decoration-none h-100">
+                        <div class="card-body text-center">
+                            <i class="bi bi-plus-circle text-success" style="font-size: 2rem;"></i>
+                            <h6 class="mt-2 mb-0">Yeni Randevu</h6>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a asp-controller="AI" asp-action="Recommendation" class="card text-decoration-none h-100">
+                        <div class="card-body text-center">
+                            <i class="bi bi-robot text-info" style="font-size: 2rem;"></i>
+                            <h6 class="mt-2 mb-0">AI Öneri</h6>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

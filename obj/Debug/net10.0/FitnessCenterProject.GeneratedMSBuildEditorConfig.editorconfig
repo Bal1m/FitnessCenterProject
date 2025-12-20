@@ -1,14 +1,22 @@
 is_global = true
 build_property.TargetFramework = net10.0
-build_property.TargetFrameworkIdentifier = .NETCoreApp
-build_property.TargetFrameworkVersion = v10.0
+build_property.TargetFramework = net10.0
+build_property.TargetPlatformMinVersion = 
 build_property.TargetPlatformMinVersion = 
 build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
 build_property.PlatformNeutralAssembly = 
 build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.TargetFrameworkIdentifier = .NETCoreApp
+build_property.TargetFrameworkVersion = v10.0
 build_property.RootNamespace = FitnessCenterProject
 build_property.RootNamespace = FitnessCenterProject
 build_property.ProjectDir = C:\Users\murat\Desktop\WebProgramlama\FitnessCenterProject\FitnessCenterProject\
@@ -22,6 +30,90 @@ build_property._RazorSourceGeneratorDebug =
 build_property.EffectiveAnalysisLevelStyle = 10.0
 build_property.EnableCodeStyleSeverity = 
 
+[C:/Users/murat/Desktop/WebProgramlama/FitnessCenterProject/FitnessCenterProject/Views/Account/AccessDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxBY2Nlc3NEZW5pZWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/murat/Desktop/WebProgramlama/FitnessCenterProject/FitnessCenterProject/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/murat/Desktop/WebProgramlama/FitnessCenterProject/FitnessCenterProject/Views/Account/Profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxQcm9maWxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/murat/Desktop/WebProgramlama/FitnessCenterProject/FitnessCenterProject/Views/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/murat/Desktop/WebProgramlama/FitnessCenterProject/FitnessCenterProject/Views/Admin/Appointments.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQXBwb2ludG1lbnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/murat/Desktop/WebProgramlama/FitnessCenterProject/FitnessCenterProject/Views/Admin/AvailabilityCreate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQXZhaWxhYmlsaXR5Q3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/murat/Desktop/WebProgramlama/FitnessCenterProject/FitnessCenterProject/Views/Admin/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/murat/Desktop/WebProgramlama/FitnessCenterProject/FitnessCenterProject/Views/Admin/ServiceCreate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cU2VydmljZUNyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/murat/Desktop/WebProgramlama/FitnessCenterProject/FitnessCenterProject/Views/Admin/ServiceEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cU2VydmljZUVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/murat/Desktop/WebProgramlama/FitnessCenterProject/FitnessCenterProject/Views/Admin/Services.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cU2VydmljZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/murat/Desktop/WebProgramlama/FitnessCenterProject/FitnessCenterProject/Views/Admin/TrainerAvailabilities.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVHJhaW5lckF2YWlsYWJpbGl0aWVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/murat/Desktop/WebProgramlama/FitnessCenterProject/FitnessCenterProject/Views/Admin/TrainerCreate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVHJhaW5lckNyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/murat/Desktop/WebProgramlama/FitnessCenterProject/FitnessCenterProject/Views/Admin/TrainerEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVHJhaW5lckVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/murat/Desktop/WebProgramlama/FitnessCenterProject/FitnessCenterProject/Views/Admin/Trainers.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVHJhaW5lcnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/murat/Desktop/WebProgramlama/FitnessCenterProject/FitnessCenterProject/Views/Admin/User.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXNlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/murat/Desktop/WebProgramlama/FitnessCenterProject/FitnessCenterProject/Views/AI/Recommendation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQUlcUmVjb21tZW5kYXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/murat/Desktop/WebProgramlama/FitnessCenterProject/FitnessCenterProject/Views/Appointment/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwb2ludG1lbnRcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/murat/Desktop/WebProgramlama/FitnessCenterProject/FitnessCenterProject/Views/Appointment/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwb2ludG1lbnRcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/murat/Desktop/WebProgramlama/FitnessCenterProject/FitnessCenterProject/Views/Appointment/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwb2ludG1lbnRcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/murat/Desktop/WebProgramlama/FitnessCenterProject/FitnessCenterProject/Views/Home/About.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBYm91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/murat/Desktop/WebProgramlama/FitnessCenterProject/FitnessCenterProject/Views/Home/Contact.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDb250YWN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/murat/Desktop/WebProgramlama/FitnessCenterProject/FitnessCenterProject/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -30,8 +122,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/murat/Desktop/WebProgramlama/FitnessCenterProject/FitnessCenterProject/Views/Home/Services.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTZXJ2aWNlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/murat/Desktop/WebProgramlama/FitnessCenterProject/FitnessCenterProject/Views/Home/Trainers.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxUcmFpbmVycy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/murat/Desktop/WebProgramlama/FitnessCenterProject/FitnessCenterProject/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/murat/Desktop/WebProgramlama/FitnessCenterProject/FitnessCenterProject/Views/Shared/_AdminLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/murat/Desktop/WebProgramlama/FitnessCenterProject/FitnessCenterProject/Views/Shared/_ValidationScriptsPartial.cshtml]

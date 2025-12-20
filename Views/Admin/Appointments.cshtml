@@ -1,0 +1,99 @@
+﻿@model List<Appointment>
+@{
+    ViewData["Title"] = "Randevu Yönetimi";
+    Layout = "_AdminLayout";
+}
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="bi bi-calendar-check me-2"></i>Randevu Yönetimi</h2>
+    </div>
+
+    <div class="card">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Üye</th>
+                            <th>Hizmet</th>
+                            <th>Eğitmen</th>
+                            <th>Tarih/Saat</th>
+                            <th>Ücret</th>
+                            <th>Durum</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var appointment in Model)
+                        {
+                            var statusBadge = appointment.Status switch
+                            {
+                                AppointmentStatus.Pending => "bg-warning",
+                                AppointmentStatus.Approved => "bg-success",
+                                AppointmentStatus.Rejected => "bg-danger",
+                                AppointmentStatus.Completed => "bg-info",
+                                AppointmentStatus.Cancelled => "bg-secondary",
+                                _ => "bg-secondary"
+                            };
+                            var statusText = appointment.Status switch
+                            {
+                                AppointmentStatus.Pending => "Beklemede",
+                                AppointmentStatus.Approved => "Onaylı",
+                                AppointmentStatus.Rejected => "Reddedildi",
+                                AppointmentStatus.Completed => "Tamamlandı",
+                                AppointmentStatus.Cancelled => "İptal",
+                                _ => "Bilinmiyor"
+                            };
+                            <tr>
+                                <td>@appointment.Id</td>
+                                <td>
+                                    <strong>@appointment.User.FullName</strong><br>
+                                    <small class="text-muted">@appointment.User.Email</small>
+                                </td>
+                                <td>@appointment.Service.Name</td>
+                                <td>@appointment.Trainer.FullName</td>
+                                <td>
+                                    @appointment.AppointmentDate.ToString("dd.MM.yyyy")<br>
+                                    <small>@appointment.StartTime.ToString(@"hh\:mm") - @appointment.EndTime.ToString(@"hh\:mm")</small>
+                                </td>
+                                <td><strong class="text-primary">@appointment.TotalPrice.ToString("N0") TL</strong></td>
+                                <td><span class="badge @statusBadge">@statusText</span></td>
+                                <td>
+                                    @if (appointment.Status == AppointmentStatus.Pending)
+                                    {
+                                        <form asp-action="AppointmentApprove" asp-route-id="@appointment.Id" method="post" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-success" title="Onayla">
+                                                <i class="bi bi-check-lg"></i>
+                                            </button>
+                                        </form>
+                                        <form asp-action="AppointmentReject" asp-route-id="@appointment.Id" method="post" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-warning" title="Reddet">
+                                                <i class="bi bi-x-lg"></i>
+                                            </button>
+                                        </form>
+                                    }
+                                    @if (appointment.Status == AppointmentStatus.Approved)
+                                    {
+                                        <form asp-action="AppointmentComplete" asp-route-id="@appointment.Id" method="post" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-info" title="Tamamlandı">
+                                                <i class="bi bi-check-circle"></i>
+                                            </button>
+                                        </form>
+                                    }
+                                    <form asp-action="AppointmentDelete" asp-route-id="@appointment.Id" method="post" class="d-inline"
+                                          onsubmit="return confirm('Bu randevuyu silmek istediğinize emin misiniz?');">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" title="Sil">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+﻿@{
+    ViewData["Title"] = "Hakkımızda";
+    var gym = ViewBag.GymSettings as GymSettings;
+}
+
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="section-title">Hakkımızda</h1>
+        <p class="text-muted">FitLife ailesini tanıyın</p>
+    </div>
+
+    <div class="row align-items-center mb-5">
+        <div class="col-md-6 mb-4 mb-md-0">
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600"
+                 alt="Fitness" class="img-fluid rounded shadow">
+        </div>
+        <div class="col-md-6">
+            <h3 class="fw-bold mb-3">Vizyonumuz</h3>
+            <p class="text-muted">
+                FitLife olarak, sağlıklı yaşamı herkes için erişilebilir kılmak amacıyla yola çıktık.
+                Modern ekipmanlarımız, uzman eğitmen kadromuz ve kişiselleştirilmiş programlarımızla
+                her yaştan ve her seviyeden sporsevere hizmet veriyoruz.
+            </p>
+            <p class="text-muted">
+                Yapay zeka destekli öneri sistemimiz sayesinde, vücut tipinize ve hedeflerinize
+                uygun egzersiz ve beslenme programları oluşturabilirsiniz.
+            </p>
+        </div>
+    </div>
+
+    <hr class="my-5">
+
+    <div class="row align-items-center mb-5">
+        <div class="col-md-6 order-md-2 mb-4 mb-md-0">
+            <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600"
+                 alt="Training" class="img-fluid rounded shadow">
+        </div>
+        <div class="col-md-6 order-md-1">
+            <h3 class="fw-bold mb-3">Misyonumuz</h3>
+            <p class="text-muted">
+                Her bireyin kendine özgü ihtiyaçlarına göre spor yapmasına ve sağlıklı bir yaşam
+                sürmesine yardımcı olmak. Üyelerimize sadece spor salonu değil, bir yaşam tarzı sunuyoruz.
+            </p>
+            <ul class="list-unstyled">
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Kişiye özel antrenman programları</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Uzman diyetisyen desteği</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Modern ve hijyenik ortam</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Esnek randevu sistemi</li>
+            </ul>
+        </div>
+    </div>
+
+    @if (gym != null)
+    {
+        <div class="card bg-light border-0 mt-5">
+            <div class="card-body p-5">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="fw-bold mb-3">
+                            <i class="bi bi-building me-2 text-primary"></i>@gym.GymName
+                        </h4>
+                        <p class="text-muted">@gym.Description</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="fw-bold mb-3">İletişim Bilgileri</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <i class="bi bi-geo-alt text-primary me-2"></i>@gym.Address
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-telephone text-primary me-2"></i>@gym.PhoneNumber
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-envelope text-primary me-2"></i>@gym.Email
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-clock text-primary me-2"></i>
+                                @gym.OpenTime.ToString(@"hh\:mm") - @gym.CloseTime.ToString(@"hh\:mm")
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

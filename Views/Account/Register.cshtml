@@ -1,0 +1,116 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Kayıt Ol";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header text-center">
+                    <h4 class="mb-0">
+                        <i class="bi bi-person-plus me-2"></i>Kayıt Ol
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Register" method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="FullName" class="form-label">
+                                <i class="bi bi-person me-1"></i>Ad Soyad
+                            </label>
+                            <input asp-for="FullName" class="form-control" placeholder="Adınız Soyadınız" />
+                            <span asp-validation-for="FullName" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label">
+                                <i class="bi bi-envelope me-1"></i>E-posta
+                            </label>
+                            <input asp-for="Email" class="form-control" placeholder="ornek@email.com" />
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="PhoneNumber" class="form-label">
+                                <i class="bi bi-telephone me-1"></i>Telefon
+                            </label>
+                            <input asp-for="PhoneNumber" class="form-control" placeholder="05XX XXX XX XX" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Password" class="form-label">
+                                    <i class="bi bi-lock me-1"></i>Şifre
+                                </label>
+                                <input asp-for="Password" class="form-control" placeholder="••••••••" />
+                                <span asp-validation-for="Password" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="ConfirmPassword" class="form-label">
+                                    <i class="bi bi-lock-fill me-1"></i>Şifre Tekrar
+                                </label>
+                                <input asp-for="ConfirmPassword" class="form-control" placeholder="••••••••" />
+                                <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="terms" required />
+                            <label class="form-check-label" for="terms">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Kullanım şartlarını</a> kabul ediyorum.
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 py-2">
+                            <i class="bi bi-person-plus me-2"></i>Kayıt Ol
+                        </button>
+                    </form>
+
+                    <hr class="my-4">
+
+                    <div class="text-center">
+                        <p class="mb-0">Zaten hesabınız var mı?</p>
+                        <a asp-action="Login" class="btn btn-outline-primary mt-2">
+                            <i class="bi bi-box-arrow-in-right me-1"></i>Giriş Yap
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Terms Modal -->
+<div class="modal fade" id="termsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kullanım Şartları</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <h6>1. Genel Şartlar</h6>
+                <p>FitLife Spor Salonu hizmetlerini kullanarak aşağıdaki şartları kabul etmiş sayılırsınız.</p>
+
+                <h6>2. Üyelik</h6>
+                <p>Üyelik bilgilerinizin doğruluğundan siz sorumlusunuz. Yanlış bilgi verilmesi durumunda üyelik iptal edilebilir.</p>
+
+                <h6>3. Randevu</h6>
+                <p>Alınan randevular 24 saat öncesine kadar iptal edilebilir. İptal edilmeyen randevular ücretlendirilir.</p>
+
+                <h6>4. Sorumluluk</h6>
+                <p>Spor aktiviteleri sırasında oluşabilecek sağlık sorunlarından FitLife sorumlu tutulamaz.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Anladım</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

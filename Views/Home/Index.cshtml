@@ -1,37 +1,231 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using FitnessCenterProject.Models.Entities
+@{
+    ViewData["Title"] = "Ana Sayfa";
+    var services = ViewBag.Services as List<Service> ?? new List<Service>();
+    var trainers = ViewBag.Trainers as List<Trainer> ?? new List<Trainer>();
+    var gym = ViewBag.GymSettings as GymSettings;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!-- Hero Section -->
+<section class="hero-section text-center">
+    <div class="container position-relative">
+        <h1 class="display-4 fw-bold mb-4">Sağlıklı Yaşamın Adresi</h1>
+        <p class="lead mb-4">
+            Modern ekipmanlar, uzman eğitmenler ve kişiselleştirilmiş programlarla<br>
+            hedeflerinize ulaşmanıza yardımcı oluyoruz.
+        </p>
+        <div class="d-flex justify-content-center gap-3">
+            <a asp-controller="Appointment" asp-action="Create" class="btn btn-custom btn-lg">
+                <i class="bi bi-calendar-plus me-2"></i>Randevu Al
+            </a>
+            <a asp-controller="Home" asp-action="Services" class="btn btn-outline-light btn-lg">
+                <i class="bi bi-grid me-2"></i>Hizmetlerimiz
+            </a>
+        </div>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-	<p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-
-<a href="https://example.com">Example Link</a>
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-
-
-</div>
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-	<p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-
-
-    <div class="text-center">
-        <h1 class="display-4">Welcome</h1>
-        <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+        <!-- Stats -->
+        <div class="row mt-5 pt-4">
+            <div class="col-md-3 col-6 mb-3">
+                <h2 class="display-5 fw-bold text-warning">500+</h2>
+                <p class="text-light">Mutlu Üye</p>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <h2 class="display-5 fw-bold text-warning">@trainers.Count+</h2>
+                <p class="text-light">Uzman Eğitmen</p>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <h2 class="display-5 fw-bold text-warning">@services.Count+</h2>
+                <p class="text-light">Farklı Program</p>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <h2 class="display-5 fw-bold text-warning">7/24</h2>
+                <p class="text-light">Destek</p>
+            </div>
+        </div>
     </div>
-</div>
+</section>
+
+<!-- Services Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Hizmetlerimiz</h2>
+            <p class="text-muted">Size özel programlarla hedeflerinize ulaşın</p>
+        </div>
+
+        <div class="row g-4">
+            @foreach (var service in services)
+            {
+                <div class="col-md-4">
+                    <div class="card service-card h-100">
+                        <div class="card-body">
+                            @{
+                                var icon = service.Name?.ToLower() switch
+                                {
+                                    "fitness" => "bi-lightning-charge",
+                                    "yoga" => "bi-flower1",
+                                    "pilates" => "bi-person-arms-up",
+                                    "kick boks" => "bi-hand-index-thumb",
+                                    "yüzme" => "bi-water",
+                                    _ => "bi-heart-pulse"
+                                };
+                            }
+                            <i class="bi @icon"></i>
+                            <h5 class="card-title">@service.Name</h5>
+                            <p class="card-text text-muted">@service.Description</p>
+                            <div class="mt-3">
+                                <span class="badge bg-primary">@service.DurationMinutes dk</span>
+                                <span class="badge bg-success">@service.Price.ToString("N0") TL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="text-center mt-4">
+            <a asp-controller="Home" asp-action="Services" class="btn btn-outline-primary">
+                Tüm Hizmetleri Gör <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Neden FitLife?</h2>
+            <p class="text-muted">Farkımızı keşfedin</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-3 col-6">
+                <div class="text-center">
+                    <div class="bg-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                        <i class="bi bi-award text-primary" style="font-size: 2rem;"></i>
+                    </div>
+                    <h6>Sertifikalı Eğitmenler</h6>
+                    <p class="text-muted small">Alanında uzman kadro</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="text-center">
+                    <div class="bg-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                        <i class="bi bi-gear text-primary" style="font-size: 2rem;"></i>
+                    </div>
+                    <h6>Modern Ekipmanlar</h6>
+                    <p class="text-muted small">Son teknoloji aletler</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="text-center">
+                    <div class="bg-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                        <i class="bi bi-person-check text-primary" style="font-size: 2rem;"></i>
+                    </div>
+                    <h6>Kişisel Programlar</h6>
+                    <p class="text-muted small">Size özel antrenman</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="text-center">
+                    <div class="bg-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                        <i class="bi bi-robot text-primary" style="font-size: 2rem;"></i>
+                    </div>
+                    <h6>AI Destekli Öneriler</h6>
+                    <p class="text-muted small">Akıllı fitness asistanı</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Trainers Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Eğitmenlerimiz</h2>
+            <p class="text-muted">Deneyimli kadromuzla tanışın</p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            @foreach (var trainer in trainers)
+            {
+                <div class="col-md-3 col-6">
+                    <div class="card trainer-card text-center h-100">
+                        <div class="card-body">
+                            @if (!string.IsNullOrEmpty(trainer.ImageUrl))
+                            {
+                                <img src="@trainer.ImageUrl" alt="@trainer.FullName" class="mb-3">
+                            }
+                            else
+                            {
+                                <div class="bg-secondary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 120px; height: 120px;">
+                                    <i class="bi bi-person text-white" style="font-size: 3rem;"></i>
+                                </div>
+                            }
+                            <h5 class="card-title mb-1">@trainer.FullName</h5>
+                            <p class="text-muted small mb-2">@trainer.Specialization</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="text-center mt-4">
+            <a asp-controller="Home" asp-action="Trainers" class="btn btn-outline-primary">
+                Tüm Eğitmenleri Gör <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5" style="background: linear-gradient(135deg, var(--primary-color) 0%, #ff8c42 100%);">
+    <div class="container text-center text-white">
+        <h2 class="fw-bold mb-3">Bugün Başlayın!</h2>
+        <p class="mb-4">Hedeflerinize ulaşmak için ilk adımı atın. Ücretsiz danışmanlık için randevu alın.</p>
+        <a asp-controller="Account" asp-action="Register" class="btn btn-light btn-lg">
+            <i class="bi bi-person-plus me-2"></i>Hemen Üye Ol
+        </a>
+    </div>
+</section>
+
+<!-- Working Hours -->
+@if (gym != null)
+{
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h3 class="fw-bold mb-3">
+                        <i class="bi bi-clock text-primary me-2"></i>Çalışma Saatlerimiz
+                    </h3>
+                    <p class="text-muted">@gym.GymName olarak her gün sizlere hizmet vermekten mutluluk duyuyoruz.</p>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <strong>Açılış:</strong> @gym.OpenTime.ToString(@"hh\:mm")
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <strong>Kapanış:</strong> @gym.CloseTime.ToString(@"hh\:mm")
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-geo-alt-fill text-primary me-2"></i>
+                            @gym.Address
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-telephone-fill text-primary me-2"></i>
+                            @gym.PhoneNumber
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6 text-center">
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500"
+                         alt="Gym" class="img-fluid rounded shadow" style="max-height: 300px; object-fit: cover;">
+                </div>
+            </div>
+        </div>
+    </section>
+}

@@ -1,19 +1,72 @@
 using System.Diagnostics;
-using FitnessCenterProject.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using FitnessCenterProject.Data;
+using FitnessCenterProject.Models;
 
 namespace FitnessCenterProject.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly ApplicationDbContext _context;
+
+        public HomeController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            // Ana sayfa için verileri hazýrla
+            ViewBag.Services = await _context.Services
+                .Where(s => s.IsActive)
+                .Take(6)
+                .ToListAsync();
+
+            ViewBag.Trainers = await _context.Trainers
+                .Where(t => t.IsActive)
+                .Take(4)
+                .ToListAsync();
+
+            ViewBag.GymSettings = await _context.GymSettings.FirstOrDefaultAsync();
+
+            return View();
+        }
+
+        public async Task<IActionResult> Services()
+        {
+            var services = await _context.Services
+                .Where(s => s.IsActive)
+                .OrderBy(s => s.Name)
+                .ToListAsync();
+
+            return View(services);
+        }
+
+        public async Task<IActionResult> Trainers()
+        {
+            var trainers = await _context.Trainers
+                .Where(t => t.IsActive)
+                .Include(t => t.TrainerServices)
+                    .ThenInclude(ts => ts.Service)
+                .Include(t => t.Availabilities)
+                .OrderBy(t => t.FullName)
+                .ToListAsync();
+
+            return View(trainers);
+        }
+
+        public async Task<IActionResult> About()
+        {
+            ViewBag.GymSettings = await _context.GymSettings.FirstOrDefaultAsync();
+            return View();
+        }
+
+        public IActionResult Contact()
         {
             return View();
         }
-        public IActionResult Index32()
-        {
-            return View();
-        }
+
         public IActionResult Privacy()
         {
             return View();
@@ -26,5 +79,3 @@ namespace FitnessCenterProject.Controllers
         }
     }
 }
-// revizeler girildi
-

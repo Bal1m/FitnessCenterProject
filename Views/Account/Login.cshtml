@@ -1,0 +1,78 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Giriş Yap";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow">
+                <div class="card-header text-center">
+                    <h4 class="mb-0">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>Giriş Yap
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Login" method="post">
+                        <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
+
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label">
+                                <i class="bi bi-envelope me-1"></i>E-posta
+                            </label>
+                            <input asp-for="Email" class="form-control" placeholder="ornek@email.com" />
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label">
+                                <i class="bi bi-lock me-1"></i>Şifre
+                            </label>
+                            <input asp-for="Password" class="form-control" placeholder="••••••••" />
+                            <span asp-validation-for="Password" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3 form-check">
+                            <input asp-for="RememberMe" class="form-check-input" />
+                            <label asp-for="RememberMe" class="form-check-label">Beni Hatırla</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 py-2">
+                            <i class="bi bi-box-arrow-in-right me-2"></i>Giriş Yap
+                        </button>
+                    </form>
+
+                    <hr class="my-4">
+
+                    <div class="text-center">
+                        <p class="mb-0">Hesabınız yok mu?</p>
+                        <a asp-action="Register" class="btn btn-outline-primary mt-2">
+                            <i class="bi bi-person-plus me-1"></i>Kayıt Ol
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Demo Bilgileri -->
+            <div class="card mt-3 border-info">
+                <div class="card-body">
+                    <h6 class="card-title text-info">
+                        <i class="bi bi-info-circle me-1"></i>Demo Giriş Bilgileri
+                    </h6>
+                    <p class="card-text small mb-1">
+                        <strong>Admin:</strong> B221210058@sakarya.edu.tr / sau
+                    </p>
+                    <p class="card-text small mb-0 text-muted">
+                        Üye olmak için kayıt olabilirsiniz.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

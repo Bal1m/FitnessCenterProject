@@ -1,0 +1,117 @@
+﻿@model List<Trainer>
+@{
+    ViewData["Title"] = "Eğitmenlerimiz";
+}
+
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="section-title">Eğitmenlerimiz</h1>
+        <p class="text-muted">Alanında uzman kadromuzla tanışın</p>
+    </div>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-info text-center">
+            <i class="bi bi-info-circle me-2"></i>Henüz eğitmen bulunmamaktadır.
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var trainer in Model)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            @if (!string.IsNullOrEmpty(trainer.ImageUrl))
+                            {
+                                <img src="@trainer.ImageUrl" alt="@trainer.FullName"
+                                     class="rounded-circle mb-3"
+                                     style="width: 150px; height: 150px; object-fit: cover; border: 4px solid var(--primary-color);">
+                            }
+                            else
+                            {
+                                <div class="bg-secondary rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                                     style="width: 150px; height: 150px;">
+                                    <i class="bi bi-person text-white" style="font-size: 4rem;"></i>
+                                </div>
+                            }
+
+                            <h4 class="card-title mb-1">@trainer.FullName</h4>
+                            <p class="text-primary fw-semibold mb-2">@trainer.Specialization</p>
+
+                            @if (!string.IsNullOrEmpty(trainer.Bio))
+                            {
+                                <p class="card-text text-muted small">@trainer.Bio</p>
+                            }
+
+                            <hr>
+
+                            <!-- Hizmetler -->
+                            @if (trainer.TrainerServices != null && trainer.TrainerServices.Any())
+                            {
+                                <div class="mb-3">
+                                    <strong class="small text-muted">Verdiği Hizmetler:</strong>
+                                    <div class="mt-2">
+                                        @foreach (var ts in trainer.TrainerServices)
+                                        {
+                                            <span class="badge bg-primary me-1 mb-1">@ts.Service?.Name</span>
+                                        }
+                                    </div>
+                                </div>
+                            }
+
+                            <!-- Müsaitlik -->
+                            @if (trainer.Availabilities != null && trainer.Availabilities.Any(a => a.IsActive))
+                            {
+                                <div class="mb-3">
+                                    <strong class="small text-muted">Müsait Günler:</strong>
+                                    <div class="mt-2">
+                                        @foreach (var avail in trainer.Availabilities.Where(a => a.IsActive))
+                                        {
+                                            var dayName = avail.DayOfWeek switch
+                                            {
+                                                DayOfWeek.Monday => "Pzt",
+                                                DayOfWeek.Tuesday => "Sal",
+                                                DayOfWeek.Wednesday => "Çar",
+                                                DayOfWeek.Thursday => "Per",
+                                                DayOfWeek.Friday => "Cum",
+                                                DayOfWeek.Saturday => "Cmt",
+                                                DayOfWeek.Sunday => "Paz",
+                                                _ => ""
+                                            };
+                                            <span class="badge bg-outline-secondary border me-1 mb-1 text-dark">
+                                                @dayName @avail.StartTime.ToString(@"hh\:mm")-@avail.EndTime.ToString(@"hh\:mm")
+                                            </span>
+                                        }
+                                    </div>
+                                </div>
+                            }
+
+                            <!-- İletişim -->
+                            <div class="d-flex justify-content-center gap-2 mt-3">
+                                @if (!string.IsNullOrEmpty(trainer.Email))
+                                {
+                                    <a href="mailto:@trainer.Email" class="btn btn-outline-primary btn-sm">
+                                        <i class="bi bi-envelope"></i>
+                                    </a>
+                                }
+                                @if (!string.IsNullOrEmpty(trainer.PhoneNumber))
+                                {
+                                    <a href="tel:@trainer.PhoneNumber" class="btn btn-outline-success btn-sm">
+                                        <i class="bi bi-telephone"></i>
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 pb-3">
+                            <a asp-controller="Appointment" asp-action="Create" class="btn btn-primary w-100">
+                                <i class="bi bi-calendar-plus me-1"></i>Randevu Al
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

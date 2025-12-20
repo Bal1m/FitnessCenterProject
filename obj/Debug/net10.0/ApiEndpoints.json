@@ -1,0 +1,170 @@
+[
+  {
+    "ContainingType": "FitnessCenterProject.Controllers.Api.ReportApiController",
+    "Method": "GetAppointmentsByDate",
+    "RelativePath": "api/ReportApi/appointments/by-date",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "date",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FitnessCenterProject.Controllers.Api.ReportApiController",
+    "Method": "GetAppointmentsByStatus",
+    "RelativePath": "api/ReportApi/appointments/by-status",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "status",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FitnessCenterProject.Controllers.Api.ReportApiController",
+    "Method": "GetUserAppointments",
+    "RelativePath": "api/ReportApi/appointments/user/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FitnessCenterProject.Controllers.Api.ReportApiController",
+    "Method": "GetRevenueReport",
+    "RelativePath": "api/ReportApi/revenue",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "startDate",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      },
+      {
+        "Name": "endDate",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FitnessCenterProject.Controllers.Api.ReportApiController",
+    "Method": "GetAllServices",
+    "RelativePath": "api/ReportApi/services",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FitnessCenterProject.Controllers.Api.ReportApiController",
+    "Method": "GetServicesByPriceRange",
+    "RelativePath": "api/ReportApi/services/by-price",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "minPrice",
+        "Type": "System.Nullable\u00601[[System.Decimal, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "maxPrice",
+        "Type": "System.Nullable\u00601[[System.Decimal, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FitnessCenterProject.Controllers.Api.ReportApiController",
+    "Method": "GetStatistics",
+    "RelativePath": "api/ReportApi/statistics",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FitnessCenterProject.Controllers.Api.ReportApiController",
+    "Method": "GetAllTrainers",
+    "RelativePath": "api/ReportApi/trainers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FitnessCenterProject.Controllers.Api.ReportApiController",
+    "Method": "GetTrainerById",
+    "RelativePath": "api/ReportApi/trainers/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FitnessCenterProject.Controllers.Api.ReportApiController",
+    "Method": "GetAvailableTrainers",
+    "RelativePath": "api/ReportApi/trainers/available",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "date",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FitnessCenterProject.Controllers.Api.ReportApiController",
+    "Method": "GetTrainersBySpecialization",
+    "RelativePath": "api/ReportApi/trainers/by-specialization",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "spec",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
