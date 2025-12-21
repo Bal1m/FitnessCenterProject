@@ -371,6 +371,6 @@ Bu proje eğitim amaçlı geliştirilmiştir.
 
 **⭐ Bu projeyi beğendiyseniz yıldız vermeyi unutmayın!**
 
-Made with ❤️ in Sakarya, Turkey
+Made with ❤️ in Sakarya,Serdivan Turkey
 
 </div>
